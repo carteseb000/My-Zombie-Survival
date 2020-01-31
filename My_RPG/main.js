@@ -5,8 +5,8 @@ var player = {
   y: null,
   width: 20,
   height: 20,
-  spdX: 3,
-  spdY: 3,
+  spdX: 2,
+  spdY: 2,
   hp: 100,
   lives: 3,
   image: "My_RPG/resources/images/sprites/player.png",
@@ -17,8 +17,8 @@ var player = {
 };
 
 var pointer = {
-  x: null,
-  y: null,
+  x: 0,
+  y: 0,
   image: "My_RPG/resources/images/GUI/pointer.png",
 };
 
@@ -30,7 +30,7 @@ var bullet = new sprite(bullet1.image, false);
 function update() {
   updateMap();
 
-  ctx.fillText(player.hp + "HP / 50HP", bar1.x, bar1.y); //players stuff
+  ctx.fillText(player.hp + "HP / 50HP", player.x, player.y); //players stuff
   ctx.fillText(player.armor + " Armor / 5 Armor", player.x, player.y + 7);
   ctx.fillText(player.lives + " Lives / 3 Lives", 10, 20);
   ctx.fillText(player.score + " score", 10, 10);
@@ -43,17 +43,15 @@ function main() {
 }
 
 function draw() {
-  setInterval(function () {
-    clearMap();
-    brick.draw(0, 0, 64, 64);
-    sand1.draw(50, 0, 64, 64);
-    shadow1.draw(100, 0, 64, 64);
-    bar1.draw(0, 100, 64, 64);
-    player1.draw(player.x, player.y, 128, 128);
-    pointer1.draw(pointer.x, pointer.y, 100, 100);
-    bullet.draw(bullet1.x, bullet1.y, 64, 64);
-    house1.draw(houseOne.x, houseOne.y, 64, 64);
-  }, 1000 / 60);
+  clearMap();
+  brick.draw(0, 0, 64, 64);
+  sand1.draw(50, 0, 64, 64);
+  shadow1.draw(100, 0, 64, 64);
+  bar1.draw(0, 100, 64, 64);
+  player1.draw(player.x, player.y, 128, 128);
+  pointer1.draw(pointer.x, pointer.y, 100, 100);
+  bullet.draw(bullet1.x, bullet1.y, 64, 64);
+  house1.draw(houseOne.x, houseOne.y, 64, 64);
 }
 
 function updateEntity(something) {
@@ -93,16 +91,16 @@ document.onmousemove = function (mouse) {
 };
 
 function movement(everything) {
-  if (key.esc) { everything.spdX = null; everything.spdY = null; }
+  if (key.esc) { window.open("pause.html"); window.close(); }
   if (key.w) { player.move(0, -player.spdY); }
   if (key.s) { player.move(0, player.spdY); }
   if (key.a) { player.move(-player.spdX, 0); }
   if (key.d) { player.move(player.spdX, 0); }
-  if (key.f) { bullet1.move(pointer.x, pointer.y);} else{ bullet1.move(player.x, player.y); }
+  if (key.f) { bullet1.move(pointer.x, pointer.y);} else { bullet1.move(player.x, player.y); }
 }
 
 //system
 window.onload = function () {
-  setInterval(main, 10000 / 150);
+  setInterval(main, 1000 / 60);
 };
 

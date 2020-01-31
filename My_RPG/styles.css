@@ -6,6 +6,7 @@
 
 #scene1 {
   background-image: url("resources/images/blocks/grass.jpg");
+  cursor: none;
 }
 
 #pause_menu {
